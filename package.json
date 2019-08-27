@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/colors": "3.1.0",
     "antd": "3.22.1",
     "axios": "^0.19.0",
     "formik": "1.5.8",
@@ -11,8 +12,14 @@
     "react-redux": "^7.1.1",
     "react-router-dom": "5.0.1",
     "react-scripts": "3.1.1",
+<<<<<<< HEAD
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+=======
+    "redux": "4.0.4",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0",
+>>>>>>> 7bc25872983a57528c081d6b1342815ffa412577
     "yup": "latest"
   },
   "scripts": {

@@ -12,13 +12,11 @@ function App() {
   const { Header, Footer, Sider, Content } = Layout;
   return (
     <Layout className="layout">
-      <Router>
-        <Route path="/" component={Navigation} />
-        <Route exact path="/" component={Login} />
-        <Route exact path="/register" component={Register} />
+      <Route path="/" component={Navigation} />
+      <Route exact path="/" component={Login} />
+      <Route exact path="/register" component={Register} />
 
-        <Content style={{ padding: "0 50px" }} />
-      </Router>
+      <Content style={{ padding: "0 50px" }} />
       <Footer style={{ textAlign: "center" }}>Copywrite 2019</Footer>
     </Layout>
   );

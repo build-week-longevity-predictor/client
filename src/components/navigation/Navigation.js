@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Layout, Menu } from "antd";
-
-import "antd/dist/antd.css";
+import UserProfileDropdown from './UserProfileDropdown'
+import { blue } from '@ant-design/colors';
 
 function Navigation() {
   const { Header, Footer, Sider, Content } = Layout;
@@ -12,7 +12,7 @@ function Navigation() {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={["1"]}
+        //>defaultSelectedKeys={["1"]}
         style={{ lineHeight: "64px" }}
       >
         <Menu.Item key="1">
@@ -21,6 +21,9 @@ function Navigation() {
         <Menu.Item key="2">
           <Link to="/register">Register</Link>
         </Menu.Item>
+            <div style={{ float: "right", padding: "0 20px", fontSize: 20 }}>
+              <UserProfileDropdown />
+            </div>        
       </Menu>
     </Header>
   );

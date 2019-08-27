@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link, withRouter, Redirect } from "react-router-dom";
+import { login } from "../../action/User";
 import { Field, withFormik, Formik } from "formik";
 import * as Yup from "yup";
-import {
-  Form,
-  List,
-  Input,
-  Icon,
-  Layout,
-  Select,
-  Checkbox,
-  Button,
-  Card,
-  Alert
-} from "antd";
+import { Form, message, Input, Icon, Button, Card, Alert } from "antd";
+
+message.config({
+  top: 100,
+  maxCount: 1
+});
 
 const formItemLayout = {
   labelCol: {
@@ -47,7 +43,9 @@ export const LoginForm = ({
   status,
   setFieldValue,
   setFieldTouched,
-  name
+  name,
+  loginStatus,
+  message
 }) => {
   return (
     <Card
@@ -73,6 +71,7 @@ export const LoginForm = ({
         })}
 
       <Form {...formItemLayout} onSubmit={handleSubmit}>
+        {loginStatus === "failure" && message.error("Login failed")}
         <Form.Item
           label="username"
           htmlFor="username"
@@ -105,7 +104,7 @@ export const LoginForm = ({
             : {})}
         >
           <Input
-            prefix={<Icon type="bank" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password}
@@ -118,14 +117,13 @@ export const LoginForm = ({
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" name="submit">
+          <Button type="primary" htmlType="submit" name="submit" style={{ width: "100%" }}>
             Login
           </Button>
+          Or <Link to="/register">register now!</Link>
         </Form.Item>
       </Form>
-      {status && (status.registration || status.success) && (
-        <div>{status.registration || status.success}</div>
-      )}
+      {message && <div>{message}</div>}
     </Card>
   );
 };
@@ -133,8 +131,8 @@ export const LoginForm = ({
 const Login = withFormik({
   mapPropsToValues({ password, username }) {
     return {
-      password: password || "",
-      username: username || ""
+      password: password || "test123",
+      username: username || "tester"
     };
   },
   validationSchema: Yup.object().shape({
@@ -144,18 +142,20 @@ const Login = withFormik({
   handleSubmit: (values, { props }) => {
     props.login(values);
   }
-})(LoginForm); // currying functions in Javascript
+})(LoginForm);
 
-export default Login;
-
-const mapStateToProps = ({ error, fetching, saving, deleting }) => ({
-  error: error,
-  fetching: fetching,
-  saving: saving,
-  deleting: deleting
+const mapStateToProps = state => ({
+  loginStatus: state.user.loginStatus,
+  message: state.user.message
 });
 
-// export default connect(
-// mapStateToProps,
-// { login }
-// )(Login);
+const mapDispatchToProps = dispatch => ({
+  login: values => {
+    dispatch(login(values));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

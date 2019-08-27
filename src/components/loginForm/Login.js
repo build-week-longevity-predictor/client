@@ -5,16 +5,18 @@ import { Field, withFormik, Formik } from "formik";
 import * as Yup from "yup";
 import {
   Form,
-  List,
+  message,
   Input,
   Icon,
-  Layout,
-  Select,
-  Checkbox,
   Button,
   Card,
   Alert
 } from "antd";
+
+message.config({
+  top: 100,
+  maxCount: 1
+});
 
 const formItemLayout = {
   labelCol: {
@@ -48,7 +50,9 @@ export const LoginForm = ({
   status,
   setFieldValue,
   setFieldTouched,
-  name
+  name,
+  loginStatus,
+  message  
 }) => {
   return (
     <Card
@@ -74,6 +78,7 @@ export const LoginForm = ({
         })}
 
       <Form {...formItemLayout} onSubmit={handleSubmit}>
+        {loginStatus === "failure" && message.error("Login failed")}
         <Form.Item
           label="username"
           htmlFor="username"
@@ -106,7 +111,7 @@ export const LoginForm = ({
             : {})}
         >
           <Input
-            prefix={<Icon type="bank" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password}
@@ -124,8 +129,8 @@ export const LoginForm = ({
           </Button>
         </Form.Item>
       </Form>
-      {status && (status.token || status.success) && (
-        <div>{status.token || status.success}</div>
+      {message && (
+        <div>{message}</div>
       )}
     </Card>
   );
@@ -144,29 +149,22 @@ const Login = withFormik({
   }),
   handleSubmit: (values, { props }) => {
     props.login(values);
-    //actions.setStatus({token: props.token});
   }
-})(LoginForm); // currying functions in Javascript
+})(LoginForm); 
 
-const mapStateToProps = ({
-  error,
-  loggingIn,
-  loggedIn,
-  fetching,
-  saving,
-  deleting,
-  token
-}) => ({
-  error: error,
-  loggingIn: loggingIn,
-  loggedIn: loggedIn,
-  fetching: fetching,
-  saving: saving,
-  deleting: deleting,
-  token: token
+
+const mapStateToProps = state => ({
+  loginStatus: state.user.loginStatus,
+  message: state.user.message
+});  
+
+const mapDispatchToProps = dispatch => ({
+  login: (values) => {
+    dispatch(login(values));
+  }
 });
 
 export default connect(
   mapStateToProps,
-  { login }
+mapDispatchToProps  
 )(Login);

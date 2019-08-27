@@ -1,36 +1,55 @@
 import axios from "axios";
 import axiosWithAuth from "../utilities/axiosAuth";
 
-export const LOGIN = "LOGIN";
+export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOAD_TOKEN = "LOAD_TOKEN";
-export const LOG_OUT = "LOG_OUT";
-export const FETCHING = "FETCHING";
-export const SUCCESS = "SUCCESS";
-export const ERROR = "ERROR";
+export const LOGIN_ERROR = "LOGIN_ERROR";
+export const SIGNUP_START = "SIGNUP_START";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_ERROR = "SIGNUP_ERROR";
+export const LOGOUT_USER = "LOGOUT_USER";
+
 
 const url = "https://career-longevity-predictor.herokuapp.com/api";
 
-export const logOut = () => ({
-  type: LOG_OUT
-});
 
-export const login = credentials => dispatch => {
-  dispatch({ type: LOGIN });
-  return axios.post(url + "/auth/login", credentials).then(res => {
+
+export const login = credentials => async dispatch => {
+  dispatch({ type: LOGIN_START });
+  try {
+    const res = await  axios
+    .post(url + "/auth/login", credentials)
     localStorage.setItem("token", res.data.token);
-    dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
-  });
+    dispatch({ 
+      type: LOGIN_SUCCESS, 
+      payload: res.data.message 
+    });
+  }
+  catch (err) {
+    dispatch({
+      type: LOGIN_ERROR,
+      payload: err
+    });
+  }  
+}
+
+
+
+export const logoutUser = () => {
+  localStorage.removeItem("token");
+
+  return {
+    type: LOGOUT_USER
+  };
 };
 
 export const signUp = credentials => dispatch => {
-  console.log(credentials);
-  dispatch({ type: FETCHING });
+  dispatch({ type: SIGNUP_START });
   axios
     .post(url + "/auth/register", credentials)
     .then(res => {
-      localStorage.setItem("token", res.data.token);
-      dispatch({ type: SUCCESS, payload: res.data });
+      // localStorage.setItem("token", res.data.token);
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.username });
     })
-    .catch(err => dispatch({ type: ERROR, payload: err }));
+    .catch(err => dispatch({ type: SIGNUP_ERROR, payload: err.message }));
 };

@@ -5,16 +5,18 @@ import { Field, withFormik, Formik } from "formik";
 import * as Yup from "yup";
 import {
   Form,
-  List,
+  message,
   Input,
   Icon,
-  Layout,
-  Select,
-  Checkbox,
   Button,
   Card,
   Alert
 } from "antd";
+
+message.config({
+  top: 100,
+  maxCount: 1
+});
 
 const formItemLayout = {
   labelCol: {
@@ -48,11 +50,13 @@ export const RegisterForm = ({
   status,
   setFieldValue,
   setFieldTouched,
-  name
+  name,
+  loginStatus,
+  message  
 }) => {
   return (
     <Card
-      title="Register as a New User"
+      title="Register New User"
       style={{
         maxWidth: 400,
         minWidth: 400,
@@ -74,6 +78,7 @@ export const RegisterForm = ({
         })}
 
       <Form {...formItemLayout} onSubmit={handleSubmit}>
+        {loginStatus === "failure" && message.error("Login failed")}
         <Form.Item
           label="Email"
           htmlFor="email"
@@ -146,8 +151,8 @@ export const RegisterForm = ({
           </Button>
         </Form.Item>
       </Form>
-      {status && (status.registration || status.success) && (
-        <div>{status.registration || status.success}</div>
+      {message && (
+        <div>{message}</div>
       )}
     </Card>
   );
@@ -169,27 +174,21 @@ const Register = withFormik({
   handleSubmit: (values, { props }) => {
     props.signUp(values);
   }
-})(RegisterForm); // currying functions in Javascript
+})(RegisterForm); 
 
-//export default Register;
 
-const mapStateToProps = ({
-  error,
-  loggingIn,
-  loggedIn,
-  fetching,
-  saving,
-  deleting
-}) => ({
-  error: error,
-  loggingIn: loggingIn,
-  loggedIn: loggedIn,
-  fetching: fetching,
-  saving: saving,
-  deleting: deleting
+const mapStateToProps = state => ({
+  loginStatus: state.user.loginStatus,
+  message: state.user.message
+});  
+
+const mapDispatchToProps = dispatch => ({
+  signUp: (values) => {
+    dispatch(signUp(values));
+  }
 });
 
 export default connect(
-  null,
-  { signUp }
+  mapStateToProps,
+mapDispatchToProps  
 )(Register);

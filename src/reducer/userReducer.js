@@ -1,47 +1,64 @@
 import {
-  LOGIN,
+  LOGIN_START,
   LOGIN_SUCCESS,
-  LOAD_TOKEN,
-  LOG_OUT,
-  FETCHING,
-  SUCCESS
-} from "../action";
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+  LOGIN_ERROR,
+  SIGNUP_ERROR
+} from "../action/User";
 
 const initialState = {
   loggingIn: false,
   error: null,
   loggedIn: false,
-  token: null,
-  fetching: false
+  signingUp: false,
+  loginStatus: "no",
+  token: localStorage.getItem("token"),
+  message: null
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOG_OUT:
-      return { ...state, loggedIn: false };
-    case LOAD_TOKEN:
-      return { ...state, loggedIn: true, token: action.payload };
-    case LOGIN:
-      return { ...state, fetchingFriends: true };
+    case LOGIN_START:
+      return {
+        ...state,
+        loggingIn: true,
+        error: false
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
         loggingIn: false,
-        token: action.payload,
-        loggedIn: true
+        loggedIn: true,
+        loginStatus: "yes",
+        token: localStorage.getItem("token"),
+        message: action.payload
       };
-    case FETCHING:
+    case LOGIN_ERROR: {
       return {
         ...state,
-        error: null,
-        fetching: true
+        error: action.payload,
+        loginStatus: "failure"
       };
-    case SUCCESS:
+    }
+    case SIGNUP_START:
       return {
         ...state,
-        error: null,
-        fetching: false
+        signingUp: true
       };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        signingUp: false,
+        message: action.payload
+      };
+    case SIGNUP_ERROR: {
+      return {
+        ...state,
+        signingUp: false,
+        error: action.payload
+      };
+    }
 
     default:
       return state;

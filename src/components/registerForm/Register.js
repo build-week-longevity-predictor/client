@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { signUp } from "../../action/User";
 import { Field, withFormik, Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -155,9 +156,9 @@ export const RegisterForm = ({
 const Register = withFormik({
   mapPropsToValues({ password, username, email }) {
     return {
-      password: password || "",
-      username: username || "",
-      email: email || ""
+      password: password || "test123",
+      username: username || "tester",
+      email: email || "test@mail.com"
     };
   },
   validationSchema: Yup.object().shape({
@@ -166,20 +167,29 @@ const Register = withFormik({
     email: Yup.string().required("Required")
   }),
   handleSubmit: (values, { props }) => {
-    props.login(values);
+    props.signUp(values);
   }
 })(RegisterForm); // currying functions in Javascript
 
-export default Register;
+//export default Register;
 
-const mapStateToProps = ({ error, fetching, saving, deleting }) => ({
+const mapStateToProps = ({
+  error,
+  loggingIn,
+  loggedIn,
+  fetching,
+  saving,
+  deleting
+}) => ({
   error: error,
+  loggingIn: loggingIn,
+  loggedIn: loggedIn,
   fetching: fetching,
   saving: saving,
   deleting: deleting
 });
 
-// export default connect(
-// mapStateToProps,
-// { login }
-// )(Login);
+export default connect(
+  null,
+  { signUp }
+)(Register);

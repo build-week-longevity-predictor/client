@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { login } from "../../action/User";
 import { Field, withFormik, Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -123,8 +124,8 @@ export const LoginForm = ({
           </Button>
         </Form.Item>
       </Form>
-      {status && (status.registration || status.success) && (
-        <div>{status.registration || status.success}</div>
+      {status && (status.token || status.success) && (
+        <div>{status.token || status.success}</div>
       )}
     </Card>
   );
@@ -133,8 +134,8 @@ export const LoginForm = ({
 const Login = withFormik({
   mapPropsToValues({ password, username }) {
     return {
-      password: password || "",
-      username: username || ""
+      password: password || "test123",
+      username: username || "tester"
     };
   },
   validationSchema: Yup.object().shape({
@@ -143,19 +144,29 @@ const Login = withFormik({
   }),
   handleSubmit: (values, { props }) => {
     props.login(values);
+    //actions.setStatus({token: props.token});
   }
 })(LoginForm); // currying functions in Javascript
 
-export default Login;
-
-const mapStateToProps = ({ error, fetching, saving, deleting }) => ({
+const mapStateToProps = ({
+  error,
+  loggingIn,
+  loggedIn,
+  fetching,
+  saving,
+  deleting,
+  token
+}) => ({
   error: error,
+  loggingIn: loggingIn,
+  loggedIn: loggedIn,
   fetching: fetching,
   saving: saving,
-  deleting: deleting
+  deleting: deleting,
+  token: token
 });
 
-// export default connect(
-// mapStateToProps,
-// { login }
-// )(Login);
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);

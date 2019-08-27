@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import { login } from "../../action/User";
 import { Field, withFormik, Formik } from "formik";
 import * as Yup from "yup";
-import {
-  Form,
-  message,
-  Input,
-  Icon,
-  Button,
-  Card,
-  Alert
-} from "antd";
+import { Form, message, Input, Icon, Button, Card, Alert } from "antd";
 
 message.config({
   top: 100,
@@ -52,7 +45,7 @@ export const LoginForm = ({
   setFieldTouched,
   name,
   loginStatus,
-  message  
+  message
 }) => {
   return (
     <Card
@@ -124,14 +117,13 @@ export const LoginForm = ({
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" name="submit">
+          <Button type="primary" htmlType="submit" name="submit" style={{ width: "100%" }}>
             Login
           </Button>
+          Or <Link to="/register">register now!</Link>
         </Form.Item>
       </Form>
-      {message && (
-        <div>{message}</div>
-      )}
+      {message && <div>{message}</div>}
     </Card>
   );
 };
@@ -150,21 +142,20 @@ const Login = withFormik({
   handleSubmit: (values, { props }) => {
     props.login(values);
   }
-})(LoginForm); 
-
+})(LoginForm);
 
 const mapStateToProps = state => ({
   loginStatus: state.user.loginStatus,
   message: state.user.message
-});  
+});
 
 const mapDispatchToProps = dispatch => ({
-  login: (values) => {
+  login: values => {
     dispatch(login(values));
   }
 });
 
 export default connect(
   mapStateToProps,
-mapDispatchToProps  
+  mapDispatchToProps
 )(Login);

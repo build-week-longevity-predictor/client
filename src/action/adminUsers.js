@@ -1,4 +1,3 @@
-import axios from "axios";
 import axiosWithAuth from "../utilities/axiosAuth";
 
 export const GET_USERS_START = "GET_USERS_START";

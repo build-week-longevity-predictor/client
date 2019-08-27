@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import UserProfileDropdown from './UserProfileDropdown'
-import { blue } from '@ant-design/colors';
+
 
 const Navigation = () => {
-  const { Header, Footer, Sider, Content } = Layout;
+  const { Header } = Layout;
   return (
     <Header>
       <div className="logo" />

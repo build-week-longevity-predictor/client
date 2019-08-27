@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { login } from "../../action/User";
-import { Field, withFormik, Formik } from "formik";
+import {  withFormik } from "formik";
 import * as Yup from "yup";
 import { Form, message, Input, Icon, Button, Card, Alert } from "antd";
 

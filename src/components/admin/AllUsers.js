@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import {getUsers} from '../../action/adminUsers';
 
-import { Table, Divider, Tag } from 'antd';
+import { Table } from 'antd';
 
 const { Column, ColumnGroup } = Table;
 
@@ -12,7 +12,7 @@ const AllUsers = ({getUsers,allUsers}) => {
 
   useEffect(() => {
     getUsers()
-  },[]);
+  },[getUsers]);
 
   return (
 

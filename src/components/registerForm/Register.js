@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { signUp } from "../../action/User";
-import { Field, withFormik, Formik } from "formik";
+import { withFormik } from "formik";
 import * as Yup from "yup";
 import {
   Form,

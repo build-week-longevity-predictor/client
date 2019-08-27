@@ -52,7 +52,8 @@ export const RegisterForm = ({
   setFieldTouched,
   name,
   loginStatus,
-  message  
+  message ,
+  error 
 }) => {
   return (
     <Card
@@ -151,8 +152,8 @@ export const RegisterForm = ({
           </Button>
         </Form.Item>
       </Form>
-      {message && (
-        <div>{message}</div>
+      {(message || error) && (
+        <div>{(message || error.stack)}</div>
       )}
     </Card>
   );
@@ -179,7 +180,8 @@ const Register = withFormik({
 
 const mapStateToProps = state => ({
   loginStatus: state.user.loginStatus,
-  message: state.user.message
+  message: state.user.message,
+  error: state.user.error
 });  
 
 const mapDispatchToProps = dispatch => ({

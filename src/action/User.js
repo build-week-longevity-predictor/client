@@ -9,31 +9,24 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_ERROR = "SIGNUP_ERROR";
 export const LOGOUT_USER = "LOGOUT_USER";
 
-
 const url = "https://career-longevity-predictor.herokuapp.com/api";
-
-
 
 export const login = credentials => async dispatch => {
   dispatch({ type: LOGIN_START });
   try {
-    const res = await  axios
-    .post(url + "/auth/login", credentials)
+    const res = await axios.post(url + "/auth/login", credentials);
     localStorage.setItem("token", res.data.token);
-    dispatch({ 
-      type: LOGIN_SUCCESS, 
-      payload: res.data.message 
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data.message
     });
-  }
-  catch (err) {
+  } catch (err) {
     dispatch({
       type: LOGIN_ERROR,
       payload: err
     });
-  }  
-}
-
-
+  }
+};
 
 export const logoutUser = () => {
   localStorage.removeItem("token");
@@ -43,13 +36,18 @@ export const logoutUser = () => {
   };
 };
 
-export const signUp = credentials => dispatch => {
+export const signUp = credentials => async dispatch => {
   dispatch({ type: SIGNUP_START });
-  axios
-    .post(url + "/auth/register", credentials)
-    .then(res => {
-      // localStorage.setItem("token", res.data.token);
-      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.username });
-    })
-    .catch(err => dispatch({ type: SIGNUP_ERROR, payload: err.message }));
+  try {
+    const res = await axios.post(url + "/auth/register", credentials);
+    dispatch({
+      type: SIGNUP_SUCCESS,
+      payload: res.data.username
+    });
+  } catch (err) {
+    dispatch({
+      type: SIGNUP_ERROR,
+      payload: err
+    });
+  }
 };

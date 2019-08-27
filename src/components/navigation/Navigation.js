@@ -4,7 +4,7 @@ import { Layout, Menu } from "antd";
 import UserProfileDropdown from './UserProfileDropdown'
 import { blue } from '@ant-design/colors';
 
-function Navigation() {
+const Navigation = () => {
   const { Header, Footer, Sider, Content } = Layout;
   return (
     <Header>

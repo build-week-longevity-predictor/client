@@ -71,7 +71,7 @@ export const LoginForm = ({
         })}
 
       <Form {...formItemLayout} onSubmit={handleSubmit}>
-        {loginStatus === "failure" && message.error("Login failed")}
+        {errors.login && message.error(errors.login.response.data.message)}
         <Form.Item
           label="username"
           htmlFor="username"
@@ -139,8 +139,8 @@ const Login = withFormik({
     username: Yup.string().required("Required"),
     password: Yup.string().required("Required")
   }),
-  handleSubmit: (values, { props }) => {
-    props.login(values);
+  handleSubmit: (values, { props, setErrors, setSubmitting }) => {
+    props.login(values, setErrors, setSubmitting);
   }
 })(LoginForm);
 
@@ -150,8 +150,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: values => {
-    dispatch(login(values));
+  login: (values, setErrors, setSubmitting) => {
+    dispatch(login(values, setErrors, setSubmitting));
   }
 });
 

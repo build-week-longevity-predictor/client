@@ -4,12 +4,13 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
   LOGIN_ERROR,
-  SIGNUP_ERROR
+  SIGNUP_ERROR,
+  LOGOUT_USER
 } from "../action/User";
 
 const initialState = {
   loggingIn: false,
-  error: null,
+  error: false,
   loggedIn: false,
   signingUp: false,
   loginStatus: "no",
@@ -29,21 +30,27 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingIn: false,
-        loggedIn: true,
-        loginStatus: "yes",
-        token: localStorage.getItem("token"),
-        message: action.payload
+        message: action.payload,
+        loggedIn: true
       };
     case LOGIN_ERROR: {
       return {
         ...state,
-        error: action.payload,
-        loginStatus: "failure"
+        error: true,
+        loggingIn: false,
+        loggedIn: false
       };
+    }
+    case LOGOUT_USER: {
+      return {
+        ...state,
+        loggedIn: false
+      }
     }
     case SIGNUP_START:
       return {
         ...state,
+        error: false,        
         signingUp: true
       };
     case SIGNUP_SUCCESS:
@@ -55,8 +62,8 @@ export const userReducer = (state = initialState, action) => {
     case SIGNUP_ERROR: {
       return {
         ...state,
-        signingUp: false,
-        error: action.payload
+        error: true,
+        signingUp: false
       };
     }
 

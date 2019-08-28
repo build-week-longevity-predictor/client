@@ -4,7 +4,7 @@ import { Layout, Menu } from "antd";
 import UserProfileDropdown from './UserProfileDropdown'
 
 
-const Navigation = () => {
+const Navigation = props => {
   const { Header } = Layout;
   return (
     <Header>

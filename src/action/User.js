@@ -11,7 +11,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 
 const url = "https://career-longevity-predictor.herokuapp.com/api";
 
-export const login = (payload, setErrors, setSubmitting) => async dispatch => {
+export const login = (payload, props, setErrors, setSubmitting) => async dispatch => {
   dispatch({ type: LOGIN_START });
   try {
     const res = await axios.post(url + "/auth/login", payload);
@@ -20,6 +20,8 @@ export const login = (payload, setErrors, setSubmitting) => async dispatch => {
       type: LOGIN_SUCCESS,
       payload: res.data.message
     });
+    setSubmitting(false) 
+    props.history.push('/')    
   } catch (err) {
     dispatch({
       type: LOGIN_ERROR,
@@ -31,13 +33,6 @@ export const login = (payload, setErrors, setSubmitting) => async dispatch => {
   }
 };
 
-export const logoutUser = () => {
-  localStorage.removeItem("token")
-  return {
-    type: LOGOUT_USER
-  };
-};
-
 export const signUp = (payload, props, setErrors, setSubmitting) => async dispatch => {
   dispatch({ type: SIGNUP_START });
   try {
@@ -47,7 +42,7 @@ export const signUp = (payload, props, setErrors, setSubmitting) => async dispat
       payload: res.data.username
     })
     setSubmitting(false) 
-    props.history.push('/')   
+    props.history.push('/login')   
   } catch (err) {
     dispatch({
       type: SIGNUP_ERROR,
@@ -58,4 +53,12 @@ export const signUp = (payload, props, setErrors, setSubmitting) => async dispat
     setErrors({signup: err})
     
   }
+};
+
+
+export const logoutUser = () => {
+  localStorage.removeItem("token")
+  return {
+    type: LOGOUT_USER
+  };
 };

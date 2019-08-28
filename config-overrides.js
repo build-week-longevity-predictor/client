@@ -1,4 +1,4 @@
-const aliyunTheme = require('@ant-design/aliyun-theme')
+const {gray} = require('@ant-design/colors')
 const { override, fixBabelImports, addLessLoader } = require("customize-cra");
 
 module.exports = override(
@@ -9,7 +9,7 @@ module.exports = override(
   }),
   addLessLoader({
     javascriptEnabled: true,
-    modifyVars: aliyunTheme
+    modifyVars: { '@primary-color': '#25b864' },
   })
 );
 

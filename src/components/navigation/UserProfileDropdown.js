@@ -15,17 +15,30 @@ const UserProfileDropdown = ({history, loggedIn, logoutUser }) => {
 
   <Dropdown
     overlay={
+      <>
+        {loggedIn ? (        
       <Menu>
-        {loggedIn ? (
           <Menu.Item key="0">
-            <span onClick={() => logout(()=> history.push('/'))}>Logout</span>
+            <Link to="#">Edit Profile</Link>
           </Menu.Item>
-        ) : (
           <Menu.Item key="1">
-            <Link to="/">Login</Link>
-          </Menu.Item>
-        )}
+            <span onClick={() => logout(()=> history.push('/'))}>Logout</span>
+          </Menu.Item>          
       </Menu>
+) 
+      : (
+      <Menu>
+          <Menu.Item key="0">
+            <Link to="/login">Login</Link>
+          </Menu.Item>
+          <Menu.Item key="0">
+            <Link to="/register">Register</Link>
+          </Menu.Item>
+      </Menu>
+
+        )
+    }
+      </>
     }
   >
     <Icon type="user" />

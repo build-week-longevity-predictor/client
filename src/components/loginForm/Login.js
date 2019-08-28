@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link,withRouter } from "react-router-dom";
 import { login } from "../../action/User";
 import {  withFormik } from "formik";
 import * as Yup from "yup";
@@ -45,7 +45,8 @@ export const LoginForm = ({
   setFieldTouched,
   name,
   loginStatus,
-  message
+  message,
+  error
 }) => {
   return (
     <Card
@@ -120,10 +121,9 @@ export const LoginForm = ({
           <Button type="primary" htmlType="submit" name="submit" style={{ width: "100%" }}>
             Login
           </Button>
-          Or <Link to="/register">register now!</Link>
+          New to Us?<Link to="/register"> Register now!</Link>
         </Form.Item>
       </Form>
-      {message && <div>{message}</div>}
     </Card>
   );
 };
@@ -131,31 +131,38 @@ export const LoginForm = ({
 const Login = withFormik({
   mapPropsToValues({ password, username }) {
     return {
-      password: password || "test123",
-      username: username || "tester"
+      password: password || "",
+      username: username || ""
     };
   },
   validationSchema: Yup.object().shape({
-    username: Yup.string().required("Required"),
-    password: Yup.string().required("Required")
+    username: Yup.string()
+      .required("Required")
+      .min(2, "Min 2")
+      .max(50, "Max 50"),
+    password: Yup.string()
+      .required("Required")
+      .min(2, "Min 6")
+      .max(50, "Max 50")
   }),
   handleSubmit: (values, { props, setErrors, setSubmitting }) => {
-    props.login(values, setErrors, setSubmitting);
+    props.login(values, props, setErrors, setSubmitting);
   }
 })(LoginForm);
 
 const mapStateToProps = state => ({
   loginStatus: state.user.loginStatus,
-  message: state.user.message
+  message: state.user.message,
+  error: state.user.error  
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (values, setErrors, setSubmitting) => {
-    dispatch(login(values, setErrors, setSubmitting));
+  login: (values, props, setErrors, setSubmitting) => {
+    dispatch(login(values, props, setErrors, setSubmitting));
   }
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(Login));

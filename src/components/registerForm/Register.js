@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { signUp } from "../../action/User";
 import { withFormik } from "formik";
 import * as Yup from "yup";
@@ -141,12 +141,13 @@ export const RegisterForm = ({
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" name="submit">
+          <Button type="primary" htmlType="submit" name="submit" style={{ width: "100%" }}>
             Register
           </Button>
+    Have an Account? <Link to="/login">Login now!</Link>          
         </Form.Item>
       </Form>
-      {loginStatus === "yes" && <Redirect to={"/"} />}
+      {/* {loginStatus === "yes" && <Redirect to={"/"} />} */}
     </Card>
   );
 };
@@ -154,9 +155,9 @@ export const RegisterForm = ({
 const Register = withFormik({
   mapPropsToValues({ password, username, email }) {
     return {
-      password: password || "test123",
-      username: username || "tester",
-      email: email || "test@mail.com"
+      password: password || "",
+      username: username || "",
+      email: email || ""
     };
   },
   validationSchema: Yup.object().shape({

@@ -1,32 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Dropdown, Menu,PageHeader,Button,Icon } from "antd";
 import UserProfileDropdown from './UserProfileDropdown'
 
 
-const Navigation = props => {
-  const { Header } = Layout;
-  return (
-    <Header>
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        //>defaultSelectedKeys={["1"]}
-        style={{ lineHeight: "64px" }}
-      >
-        <Menu.Item key="1">
-          <Link to="/">Login</Link>
-        </Menu.Item>
-        <Menu.Item key="2">
-          <Link to="/register">Register</Link>
-        </Menu.Item>
-            <div style={{ float: "right", padding: "0 20px", fontSize: 20 }}>
-              <UserProfileDropdown />
-            </div>        
-      </Menu>
-    </Header>
-  );
-}
 
-export default Navigation;
+
+
+const menu = (
+    <Menu>
+        <Menu.Item key="11">Operation</Menu.Item>
+        <Menu.Item key="22">Operation</Menu.Item>
+        <Menu.Item key="33">Operation</Menu.Item>
+    </Menu>
+);
+
+
+        const Navigation = props => {
+        const isMainPage = ["","/"].includes(props.history.location.pathname );
+        const pageHeaderOnBack = isMainPage?{}:{onBack:() => window.history.back()};
+          return (
+                    <div>
+                        <PageHeader
+                            {...pageHeaderOnBack}
+                            title={<div style={{marginTop:"7px"}}>Basketball Player Stats</div>}
+                            subTitle="Find Your Player"
+                            extra={[<UserProfileDropdown />]}
+                        />
+                    </div>
+                );}
+
+export default Navigation;          

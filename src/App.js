@@ -8,6 +8,7 @@ import { Layout, Menu } from "antd";
 
 import PrivateRoute from './components/PrivateRoute'
 import Predictor from './components/predictor/Predictor'
+import UsersList from './components/predictor/UsersList'
 
 import "antd/dist/antd.css";
 
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
         <PrivateRoute exact path="/Predictor" component={Predictor} />
+        <PrivateRoute exact path="/users" component={UsersList} />
         <Content style={{ padding: "0 50px" }} />
       <Footer style={{ textAlign: "center" }}>Copyright 2019</Footer>
     </Layout>

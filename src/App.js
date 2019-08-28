@@ -1,25 +1,44 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Navigation from "./components/navigation/Navigation";
+import { Route, Switch } from "react-router-dom";
+import TopNavBar from "./components/navigation/TopNavBar";
+import SideNavBar from "./components/navigation/SideNavBar";
 import Login from "./components/loginForm/Login";
 import Register from "./components/registerForm/Register";
+import Welcome from "./components/welcome/Welcome";
+import AllUsers from "./components/admin/AllUsers";
 import "./App.css";
-import { Layout, Menu } from "antd";
-
-import "antd/dist/antd.css";
+import { Layout } from "antd";
+import PrivateRoute from './components/PrivateRoute'
+import Predictor from './components/predictor/Predictor'
+import UsersList from './components/predictor/UsersList'
 
 function App() {
-  const { Header, Footer, Sider, Content } = Layout;
+  const { Footer } = Layout;
   return (
-    <Layout className="layout">
-      <Route path="/" component={Navigation} />
-      <Route exact path="/" component={Login} />
-      <Route exact path="/register" component={Register} />
-
-      <Content style={{ padding: "0 50px" }} />
-      <Footer style={{ textAlign: "center" }}>Copywrite 2019</Footer>
-    </Layout>
+    <div className="App" style={{ minHeight: "100vh" }}>
+      <Layout>
+        <SideNavBar />
+        <Layout>
+          <Layout.Header
+            style={{ background: "#fff", padding: 0 }}
+            theme="light"
+          >
+            <TopNavBar />
+          </Layout.Header>
+          <div style={{ margin: "18px 12px 0", minHeight: "76.1vh" }}>
+            <Switch>
+            <Route exact path="/" component={Welcome} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/allUsers" component={AllUsers} />
+            <PrivateRoute exact path="/predictor" component={Predictor} />
+            <PrivateRoute exact path="/users" component={UsersList} />
+            </Switch>
+          </div>
+          <Footer style={{ textAlign: "center" }}>Copyright 2019</Footer>
+        </Layout>
+      </Layout>
+    </div>
   );
 }
-
 export default App;

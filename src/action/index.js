@@ -1,1 +1,1 @@
-export {getData,sendData,deleteData,FETCH_SMURF_DATA_START, FETCH_SMURF_DATA_SUCCESS, FETCH_SMURF_DATA_FAILURE, SEND_SMURF_DATA_S} from './PlayerActions'
+export { searchPlayer , SEARCH_PLAYER_START , SEARCH_PLAYER_SUCCESS , SEARCH_PLAYER_FAILURE } from './PlayerActions'

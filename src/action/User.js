@@ -1,5 +1,6 @@
 import axios from "axios";
 import axiosWithAuth from "../utilities/axiosAuth";
+import { OmitProps } from "antd/lib/transfer/renderListBody";
 
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";

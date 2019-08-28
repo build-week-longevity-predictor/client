@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
+import { Redirect, Link } from "react-router-dom";
 import { signUp } from "../../action/User";
-import { Field, withFormik, Formik } from "formik";
+import { withFormik } from "formik";
 import * as Yup from "yup";
-import {
-  Form,
-  message,
-  Input,
-  Icon,
-  Button,
-  Card,
-  Alert
-} from "antd";
+import { Form, message, Input, Icon, Button, Card, Alert } from "antd";
 
 message.config({
   top: 100,
@@ -52,7 +45,8 @@ export const RegisterForm = ({
   setFieldTouched,
   name,
   loginStatus,
-  message  
+  message,
+  error
 }) => {
   return (
     <Card
@@ -78,7 +72,8 @@ export const RegisterForm = ({
         })}
 
       <Form {...formItemLayout} onSubmit={handleSubmit}>
-        {loginStatus === "failure" && message.error("Login failed")}
+        {errors.signup &&
+          message.error(errors.signup.response.data.message.detail)}
         <Form.Item
           label="Email"
           htmlFor="email"
@@ -146,14 +141,13 @@ export const RegisterForm = ({
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" name="submit">
+          <Button type="primary" htmlType="submit" name="submit" style={{ width: "100%" }}>
             Register
           </Button>
+    Have an Account? <Link to="/login">Login now!</Link>          
         </Form.Item>
       </Form>
-      {message && (
-        <div>{message}</div>
-      )}
+      {/* {loginStatus === "yes" && <Redirect to={"/"} />} */}
     </Card>
   );
 };
@@ -161,34 +155,42 @@ export const RegisterForm = ({
 const Register = withFormik({
   mapPropsToValues({ password, username, email }) {
     return {
-      password: password || "test123",
-      username: username || "tester",
-      email: email || "test@mail.com"
+      password: password || "",
+      username: username || "",
+      email: email || ""
     };
   },
   validationSchema: Yup.object().shape({
-    username: Yup.string().required("Required"),
-    password: Yup.string().required("Required"),
-    email: Yup.string().required("Required")
+    username: Yup.string()
+      .required("Required")
+      .min(2, "Min 2")
+      .max(50, "Max 50"),
+    password: Yup.string()
+      .required("Required")
+      .min(2, "Min 6")
+      .max(50, "Max 50"),
+    email: Yup.string()
+      .required("Required")
+      .email("Invalid email")
   }),
-  handleSubmit: (values, { props }) => {
-    props.signUp(values);
+  handleSubmit: (values, { props, setErrors, setSubmitting }) => {
+    props.signUp(values, props, setErrors, setSubmitting);
   }
-})(RegisterForm); 
-
+})(RegisterForm);
 
 const mapStateToProps = state => ({
   loginStatus: state.user.loginStatus,
-  message: state.user.message
-});  
+  message: state.user.message,
+  error: state.user.error
+});
 
 const mapDispatchToProps = dispatch => ({
-  signUp: (values) => {
-    dispatch(signUp(values));
+  signUp: (values, props, setErrors, setSubmitting) => {
+    dispatch(signUp(values, props, setErrors, setSubmitting));
   }
 });
 
 export default connect(
   mapStateToProps,
-mapDispatchToProps  
+  mapDispatchToProps
 )(Register);

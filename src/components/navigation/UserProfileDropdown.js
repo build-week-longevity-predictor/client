@@ -16,7 +16,7 @@ const UserProfileDropdown = ({history, loggedIn, logoutUser }) => {
         {loggedIn ? (        
       <Menu>
           <Menu.Item key="0">
-            <Link to="#">Edit Profile</Link>
+            <Link to="/users">Edit Profile</Link>
           </Menu.Item>
           <Menu.Item key="1">
             <span onClick={() => logout(()=> history.push('/'))}>Logout</span>

@@ -30,7 +30,7 @@ const navBarTheme = "light";
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="2">
-                        <Link to="/">
+                        <Link to="/predictor">
                         <Icon type="calculator" />
                         <span>Predictor</span>
                         </Link>

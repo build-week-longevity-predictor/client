@@ -118,7 +118,6 @@ export const LoginForm = ({
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Link to='/predictor'>
           <Button type="primary" htmlType="submit" name="submit" style={{ width: "100%" }}>
             Login
           </Button>

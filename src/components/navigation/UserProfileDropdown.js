@@ -9,10 +9,7 @@ const UserProfileDropdown = ({history, loggedIn, logoutUser }) => {
         logoutUser()
         setTimeout(cb, 100);
       }
-
- 
   return (
-
   <Dropdown
     overlay={
       <>
@@ -31,7 +28,7 @@ const UserProfileDropdown = ({history, loggedIn, logoutUser }) => {
           <Menu.Item key="0">
             <Link to="/login">Login</Link>
           </Menu.Item>
-          <Menu.Item key="0">
+          <Menu.Item key="1">
             <Link to="/register">Register</Link>
           </Menu.Item>
       </Menu>

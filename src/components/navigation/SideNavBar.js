@@ -3,19 +3,18 @@ import { connect } from 'react-redux';
 import { Layout, Menu, Icon} from 'antd';
 import { Link,withRouter } from 'react-router-dom';
 
-const {
-    Sider,
-} = Layout;
-const SubMenu = Menu.SubMenu;
 
-const NavBar = props => {
+const SideNavBar = props => {
   const [collapse, setCollapse] = useState(true);
   const onCollapse = () => {
     setCollapse(!collapse);
   };
+
+const {Sider} = Layout;  
 const navBarTheme = "light";
         return (
             <Sider
+                collapsible
                 collapsed={collapse}
                 onCollapse={onCollapse}
                 theme={navBarTheme}
@@ -42,20 +41,11 @@ const navBarTheme = "light";
                         <span>Players</span>
                         </Link>
                     </Menu.Item>
-
-
                 </Menu>
-
             </Sider>
-
-
-        );
-    
+        );    
 }
 const mapStateToProps = (state, props) => {
     return {...state,...props};
 };
-
-
-
-export default withRouter(connect(mapStateToProps)(NavBar));
+export default withRouter(connect(mapStateToProps)(SideNavBar));

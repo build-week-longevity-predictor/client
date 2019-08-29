@@ -36,7 +36,7 @@ const navBarTheme = "light";
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="3">
-                        <Link to="/">
+                        <Link to="/players">
                         <Icon type="table" />
                         <span>Players</span>
                         </Link>

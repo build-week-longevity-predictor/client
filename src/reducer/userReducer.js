@@ -14,8 +14,10 @@ const initialState = {
   loggedIn: false,
   signingUp: false,
   loginStatus: "no",
-  token: localStorage.getItem("token"),
-  message: null
+  token: localStorage.getItem("token")|| false,
+  message: null,
+  // user: {},
+  user: JSON.parse(localStorage.getItem('user')) || false
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -30,8 +32,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingIn: false,
-        message: action.payload,
-        loggedIn: true
+        message: action.payload.message,
+        loggedIn: true,
+        user: action.payload.user,
+        token: action.payload.token
+
       };
     case LOGIN_ERROR: {
       return {
@@ -44,7 +49,9 @@ export const userReducer = (state = initialState, action) => {
     case LOGOUT_USER: {
       return {
         ...state,
-        loggedIn: false
+        loggedIn: false,
+        user: false,
+        token: false
       }
     }
     case SIGNUP_START:

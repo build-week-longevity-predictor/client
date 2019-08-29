@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
+import { useSelector, useDispatch } from "react-redux";
 import axiosAuth from '../../utilities/axiosAuth'
 
 const initialUser = {
@@ -11,7 +11,7 @@ const UsersList = () => {
     const [users , setUsers] = useState([])
     const [userToEdit, setUserToEdit] = useState(initialUser)
     const [editing, setEditing] = useState(false)
-
+    const myUser = useSelector(state => state.user.user);
 
     useEffect(() => {
     getUsers()
@@ -21,7 +21,8 @@ const UsersList = () => {
     axiosAuth()
     .get(' https://career-longevity-predictor.herokuapp.com/api/users')
     .then(res => {
-      setUsers(res.data)
+      const allUsers = res.data
+      setUsers(allUsers.filter(user => user.id === myUser.userId))
     })
   }
 

@@ -20,7 +20,7 @@ export const Prediction = () => {
             </div>
             <div>
                 <div>
-                <img src='#' atl='#'/> 
+                <img src={`https://www.nba.com/assets/logos/teams/primary/web/${player.team}.svg`} atl='#'/> 
                 <h4>comparison player name</h4>
                 </div>
                 <div>

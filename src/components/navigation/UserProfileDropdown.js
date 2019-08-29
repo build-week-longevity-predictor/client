@@ -4,53 +4,74 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../action/User";
 
-const UserProfileDropdown = ({history, loggedIn, logoutUser }) => {
-      const logout = (cb) => {
-        logoutUser()
-        setTimeout(cb, 100);
-      }
+const UserProfileDropdown = ({
+  history,
+  loggedIn,
+  token,
+  logoutUser,
+  user
+}) => {
+  const logout = cb => {
+    logoutUser();
+    setTimeout(cb, 100);
+  };
   return (
-  <Dropdown
-    overlay={
-      <>
-        {loggedIn ? (        
-      <Menu>
-          <Menu.Item key="0">
-            <Link to="/users">Edit Profile</Link>
-          </Menu.Item>
-          <Menu.Item key="1">
-            <span onClick={() => logout(()=> history.push('/'))}>Logout</span>
-          </Menu.Item>          
-      </Menu>
-) 
-      : (
-      <Menu>
-          <Menu.Item key="0">
-            <Link to="/login">Login</Link>
-          </Menu.Item>
-          <Menu.Item key="1">
-            <Link to="/register">Register</Link>
-          </Menu.Item>
-      </Menu>
-
-        )
-    }
-      </>
-    }
-  >
-    <Icon type="user" />
-  </Dropdown>
-)};
+    <Dropdown
+      overlay={
+        <>
+          {token ? (
+            <Menu>
+              <Menu.Item key="0">
+                <Link to="/users">Edit Profile</Link>
+              </Menu.Item>
+              <Menu.Item key="1">
+                <span onClick={() => logout(() => history.push("/login"))}>
+                  Logout
+                </span>
+              </Menu.Item>
+            </Menu>
+          ) : (
+            <Menu>
+              <Menu.Item key="0">
+                <Link to="/login">Login</Link>
+              </Menu.Item>
+              <Menu.Item key="1">
+                <Link to="/register">Register</Link>
+              </Menu.Item>
+            </Menu>
+          )}
+        </>
+      }
+    >
+      <a>
+        {user ? (
+          <>
+            {" "}
+            {user.userName} <Icon type="down" />{" "}
+          </>
+        ) : (
+          <>
+            <Icon type="user" />{" "}
+          </>
+        )}
+      </a>
+    </Dropdown>
+  );
+};
 
 const mapStateToProps = state => ({
-  loggedIn: state.user.loggedIn
+  loggedIn: state.user.loggedIn,
+  user: state.user.user,
+  token: state.user.token
 });
 
 const mapDispatchToProps = dispatch => ({
   logoutUser: () => dispatch(logoutUser())
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserProfileDropdown));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(UserProfileDropdown)
+);

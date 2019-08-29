@@ -73,7 +73,7 @@ export const RegisterForm = ({
 
       <Form {...formItemLayout} onSubmit={handleSubmit}>
         {errors.signup &&
-          message.error(errors.signup.response.data.message.detail)}
+          message.error(errors.signup.response.data.message)}
         <Form.Item
           label="Email"
           htmlFor="email"

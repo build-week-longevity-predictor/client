@@ -10,7 +10,9 @@ import "./App.css";
 import { Layout } from "antd";
 import PrivateRoute from './utilities/PrivateRoute'
 import Predictor from './components/predictor/Predictor'
-import UsersList from './components/predictor/UsersList'
+import UsersList from './components/predictor/UsersList';
+//import UsersList from './components/users/UsersList'
+import Players from './components/players/Players';
 
 function App() {
   const { Footer } = Layout;
@@ -33,6 +35,7 @@ function App() {
             <Route exact path="/allUsers" component={AllUsers} />
             <PrivateRoute exact path="/predictor" component={Predictor} />
             <PrivateRoute exact path="/users" component={UsersList} />
+            <PrivateRoute exact path="/players" component={Players} />
             </Switch>
           </div>
           <Footer style={{ textAlign: "center" }}>Copyright 2019</Footer>

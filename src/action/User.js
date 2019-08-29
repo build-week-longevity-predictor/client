@@ -15,9 +15,10 @@ export const login = (payload, props, setErrors, setSubmitting) => async dispatc
   try {
     const res = await axios.post(url + "/auth/login", payload);
     localStorage.setItem("token", res.data.token);
+    localStorage.setItem('user', JSON.stringify(res.data.user))
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data.message
+      payload: res.data
     });
     setSubmitting(false) 
     props.history.push('/')    
@@ -57,6 +58,7 @@ export const signUp = (payload, props, setErrors, setSubmitting) => async dispat
 
 export const logoutUser = () => {
   localStorage.removeItem("token")
+  localStorage.removeItem("user")
   return {
     type: LOGOUT_USER
   };

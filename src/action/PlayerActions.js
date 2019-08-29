@@ -1,8 +1,6 @@
 import axios from "axios";
 import axiosAuth from '../utilities/axiosAuth';
 
-
-
 const url = "https://career-longevity-predictor.herokuapp.com/api/players";
 
 export const GET_PLAYER_NAMES_START = "GET_PLAYER_NAMES_START";

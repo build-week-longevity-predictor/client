@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Dropdown, Menu, PageHeader, Button, Icon } from "antd";
+import {  withRouter } from "react-router-dom";
+import { PageHeader} from "antd";
 import UserProfileDropdown from "./UserProfileDropdown";
 import { connect } from 'react-redux';
 
@@ -8,7 +8,8 @@ const TopNavBar = props => {
     const isMainPage = ["", "/"].includes(props.history.location.pathname);
     const pageHeaderOnBack = isMainPage
         ? {}
-        : { onBack: () => window.history.back() };
+        // : { onBack: () => window.history.back() };
+        : { onBack: () => props.history.push("/") };
     return (
         <div>
             <PageHeader
@@ -25,9 +26,4 @@ const TopNavBar = props => {
     );
 };
 
-
-
-const mapStateToProps = (state, props) => {
-    return {...state,...props};
-};
-export default withRouter(connect(mapStateToProps)(TopNavBar));
+export default withRouter(connect(null)(TopNavBar));

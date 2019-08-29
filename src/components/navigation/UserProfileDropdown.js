@@ -4,7 +4,13 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../action/User";
 
-const UserProfileDropdown = ({ history, loggedIn, logoutUser, message }) => {
+const UserProfileDropdown = ({
+  history,
+  loggedIn,
+  token,
+  logoutUser,
+  user
+}) => {
   const logout = cb => {
     logoutUser();
     setTimeout(cb, 100);
@@ -13,13 +19,13 @@ const UserProfileDropdown = ({ history, loggedIn, logoutUser, message }) => {
     <Dropdown
       overlay={
         <>
-          {loggedIn ? (
+          {token ? (
             <Menu>
               <Menu.Item key="0">
                 <Link to="/users">Edit Profile</Link>
               </Menu.Item>
               <Menu.Item key="1">
-                <span onClick={() => logout(() => history.push("/"))}>
+                <span onClick={() => logout(() => history.push("/login"))}>
                   Logout
                 </span>
               </Menu.Item>
@@ -38,8 +44,16 @@ const UserProfileDropdown = ({ history, loggedIn, logoutUser, message }) => {
       }
     >
       <a>
-        {message} {" "}
-        <Icon type="down" />
+        {user ? (
+          <>
+            {" "}
+            {user.userName} <Icon type="down" />{" "}
+          </>
+        ) : (
+          <>
+            <Icon type="user" />{" "}
+          </>
+        )}
       </a>
     </Dropdown>
   );
@@ -47,7 +61,8 @@ const UserProfileDropdown = ({ history, loggedIn, logoutUser, message }) => {
 
 const mapStateToProps = state => ({
   loggedIn: state.user.loggedIn,
-  message: state.user.message
+  user: state.user.user,
+  token: state.user.token
 });
 
 const mapDispatchToProps = dispatch => ({

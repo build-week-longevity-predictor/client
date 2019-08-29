@@ -12,7 +12,6 @@ const UsersList = () => {
     const [userToEdit, setUserToEdit] = useState(initialUser)
     const [editing, setEditing] = useState(false)
     const myUser = useSelector(state => state.user.user);
-    //const myUser = 'test'
 
     useEffect(() => {
     getUsers()
@@ -23,8 +22,7 @@ const UsersList = () => {
     .get(' https://career-longevity-predictor.herokuapp.com/api/users')
     .then(res => {
       const allUsers = res.data
-      setUsers(allUsers.filter(user => user.id === myUser.id))
-      //setUsers(res.data)
+      setUsers(allUsers.filter(user => user.id === myUser.userId))
     })
   }
 

@@ -15,7 +15,8 @@ const initialState = {
   signingUp: false,
   loginStatus: "no",
   token: localStorage.getItem("token"),
-  message: null
+  message: null,
+  user: []
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -30,8 +31,10 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingIn: false,
-        message: action.payload,
-        loggedIn: true
+        message: action.payload.message,
+        loggedIn: true,
+        user: action.payload.user
+
       };
     case LOGIN_ERROR: {
       return {

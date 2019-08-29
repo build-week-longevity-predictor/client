@@ -19,7 +19,7 @@ const TopNavBar = props => {
                     </div>
                 }
                 subTitle="Find Your Player"
-                extra={[<UserProfileDropdown />]}
+                extra={<UserProfileDropdown />}
             />
         </div>
     );

@@ -8,7 +8,7 @@ import Welcome from "./components/welcome/Welcome";
 import AllUsers from "./components/admin/AllUsers";
 import "./App.css";
 import { Layout } from "antd";
-import PrivateRoute from './components/PrivateRoute'
+import PrivateRoute from './utilities/PrivateRoute'
 import Predictor from './components/predictor/Predictor'
 import UsersList from './components/predictor/UsersList'
 

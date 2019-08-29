@@ -1,1 +1,10 @@
-export { searchPlayer , SEARCH_PLAYER_START , SEARCH_PLAYER_SUCCESS , SEARCH_PLAYER_FAILURE } from './PlayerActions'
+export {
+  searchPlayer,
+  getPlayers,
+  SEARCH_PLAYER_START,
+  SEARCH_PLAYER_SUCCESS,
+  SEARCH_PLAYER_FAILURE,
+  GET_PLAYERS_START,
+  GET_PLAYERS_SUCCESS,
+  GET_PLAYERS_FAILURE
+} from "./PlayerActions";

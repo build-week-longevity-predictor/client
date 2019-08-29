@@ -1,32 +1,40 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
-
+import React from "react";
+import { useSelector } from "react-redux";
 
 export const Prediction = () => {
-    const player = useSelector(state => state.player.player);  
-       
-    return(
+  const player = useSelector(state => state.player.player);
+
+  return (
+    <div>
+      <div>
         <div>
-            <div>
-                <div>
-                <h3>{player.player}</h3>
-                </div>
-                <div>
-                    <h4>Stats</h4>
-                    <p>Colege: {player.college}</p>
-                    <p>Draft Year: {player.draft_yr}</p>
-                    <p>team: {player.team}</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                <img src={`https://www.nba.com/assets/logos/teams/primary/web/${player.team}.svg`} atl='#'/> 
-                <h4>comparison player name</h4>
-                </div>
-                <div>
-                    card comparison player stats
-                </div>
-            </div>
+          <h3>{player.player}</h3>
         </div>
-    )
-}
+        <div>
+          <h4>Stats</h4>
+          <p>Colege: {player.college}</p>
+          <p>Draft Year: {player.draft_yr}</p>
+          <p>team: {player.team}</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <img
+            src={`https://www.nba.com/assets/logos/teams/primary/web/${
+              player.team === "NOH"
+                ? "NOP"
+                : player.team === "NJN"
+                ? "BKN"
+                : player.team === "PHO"
+                ? "PHX"
+                : player.team
+            }.svg`}
+            atl="#"
+          />
+          <h4>comparison player name</h4>
+        </div>
+        <div>card comparison player stats</div>
+      </div>
+    </div>
+  );
+};

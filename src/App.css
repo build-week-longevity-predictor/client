@@ -9,7 +9,6 @@
 }
 
 .App-header {
-  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,6 +22,37 @@
   color: #61dafb;
 }
 
+.ant-page-header {
+  background-color: #333 !important;
+}
+
+.ant-page-header-heading-title,
+.ant-page-header-heading-sub-title {
+  color: white !important;
+  font-size: 1.2rem !important;
+}
+
+.anticon.anticon-arrow-left {
+  color: white !important;
+}
+
+.ant-page-header-heading-title img {
+  width: 30px !important;
+  margin-right: 10px !important;
+}
+
+.ant-page-header-heading-extra {
+  margin-top: 7px !important;
+}
+
+.ant-table-row.ant-table-row-level-0 img {
+  width: 55px;
+}
+
+.player-name {
+  font-weight: bolder;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -31,7 +61,3 @@
     transform: rotate(360deg);
   }
 }
-
-
-
-

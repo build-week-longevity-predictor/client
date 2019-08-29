@@ -4,7 +4,10 @@ import {
     SEARCH_PLAYER_FAILURE,
     GET_PLAYERS_START,
     GET_PLAYERS_SUCCESS,
-    GET_PLAYERS_FAILURE
+    GET_PLAYERS_FAILURE,
+    GET_PLAYER_NAMES_START,
+    GET_PLAYER_NAMES_SUCCESS,
+    GET_PLAYER_NAMES_FAILURE    
 } from "../action";
 
 const InitialState = {
@@ -15,6 +18,7 @@ const InitialState = {
     allPlayers: [],
     playersLoaded:false,
     allPlayersNames: [],
+    playersNamesLoaded: false,
     player:{},
     playerLoaded:false,    
     error: ""
@@ -29,12 +33,10 @@ export const PlayerReducer = (state = InitialState, action) => {
                 error: false
             };
         case GET_PLAYERS_SUCCESS:
-            const playerNames = Array.from(new Set(action.payload.map(k => k.player)))
             return {
                 ...state,
                 gettingPlayers: false,
                 allPlayers: action.payload,
-                allPlayersNames: playerNames,
                 playersLoaded: true                
             };
         case GET_PLAYERS_FAILURE: {
@@ -45,6 +47,27 @@ export const PlayerReducer = (state = InitialState, action) => {
                 playersLoaded: false
             };
         }
+        case GET_PLAYER_NAMES_START:
+            return {
+                ...state,
+                gettingPlayers: true,
+                error: false
+            };
+        case GET_PLAYER_NAMES_SUCCESS:
+            return {
+                ...state,
+                gettingPlayers: false,
+                allPlayersNames: action.payload,
+                playersNamesLoaded: true                
+            };
+        case GET_PLAYER_NAMES_FAILURE: {
+            return {
+                ...state,
+                gettingPlayers: false,
+                error: action.payload,
+                playersNamesLoaded: false
+            };
+        }        
         case SEARCH_PLAYER_START:
             return {
                 ...state,

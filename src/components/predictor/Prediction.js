@@ -6,7 +6,7 @@ export const Prediction = () => {
     const player = useSelector(state => state.player.player);  
        
     return(
-        <div>{console.log(player)}
+        <div>
             <div>
                 <div>
                 <h3>{player.player}</h3>

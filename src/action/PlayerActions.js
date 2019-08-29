@@ -1,10 +1,34 @@
 import axios from "axios";
 import axiosAuth from '../utilities/axiosAuth';
+
+
+
+const url = "https://career-longevity-predictor.herokuapp.com/api/players";
+
+export const GET_PLAYER_NAMES_START = "GET_PLAYER_NAMES_START";
+export const GET_PLAYER_NAMES_SUCCESS = "GET_PLAYER_NAMES_SUCCESS";
+export const GET_PLAYER_NAMES_FAILURE = "GET_PLAYER_NAMES_FAILURE";
+
+export const getPlayerNames = () => async dispatch => {
+  dispatch({ type: GET_PLAYER_NAMES_START });
+  try {
+    const res = await axios.get(url);
+    const playerNames =  Array.from(new Set(res.data.map(k => k.player))).sort()
+    dispatch({
+      type: GET_PLAYER_NAMES_SUCCESS,
+      payload: playerNames
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_PLAYER_NAMES_FAILURE,
+      payload: err
+    });
+  }
+};
+
 export const GET_PLAYERS_START = "GET_PLAYERS_START";
 export const GET_PLAYERS_SUCCESS = "GET_PLAYERS_SUCCESS";
 export const GET_PLAYERS_FAILURE = "GET_PLAYERS_FAILURE";
-
-const url = "https://career-longevity-predictor.herokuapp.com/api/players";
 
 export const getPlayers = () => async dispatch => {
   dispatch({ type: GET_PLAYERS_START });

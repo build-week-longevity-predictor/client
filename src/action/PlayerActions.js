@@ -1,56 +1,71 @@
-import axios from 'axios';
-
-export const SEARCH_PLAYER_START = 'SEARCH_PLAYER_START';
-export const SEARCH_PLAYER_SUCCESS = 'SEARCH_PLAYER_SUCCESS';
-export const SEARCH_PLAYER_FAILURE = 'SEARCH_PLAYER_FAILURE';
-
-// export const SEND_SMURF_DATA_START = 'SEND_SMURF_DATA_START';
-// export const SEND_SMURF_DATA_SUCCESS = 'SEND_SMURF_DATA_SUCCESS';
-// export const SEND_SMURF_DATA_FAILURE = 'SEND_SMURF_DATA_START';
-
-// export const DELETE_SMURF_DATA_START = 'DELETE_SMURF_DATA_START';
+import axios from "axios";
+import axiosAuth from '../utilities/axiosAuth';
 
 
-export const searchPlayer = (player) => {
-    return dispatch => {
-    dispatch({ type: SEARCH_PLAYER_START, payload: player });
-    axios
-      .get('https://career-longevity-predictor.herokuapp.com/api/players')
-      .then(res => {
-        // res.data.data
-        console.log(res.data);
-        dispatch({ type: SEARCH_PLAYER_SUCCESS, payload: res.data});
-      })
-      .catch(err => {
-          console.log(err)
-        dispatch({ type: SEARCH_PLAYER_FAILURE, payload: err.response });
-      });
-  };
-}
 
-// export const sendData = (newSmurf) => {
-//     return dispatch => {
-//     dispatch({ type: SEND_SMURF_DATA_START });
-//     axios
-//       .post('http://localhost:3333/smurfs', newSmurf)
-//       .then(res => {
-//         // res.data.data
-//         console.log(res);
-//         dispatch({ type: SEND_SMURF_DATA_SUCCESS, payload: res.data});
-//       })
-//   };
-// }
+const url = "https://career-longevity-predictor.herokuapp.com/api/players";
 
-// export const deleteData = (id) => {
-//     return dispatch => {
-//     dispatch({ type: DELETE_SMURF_DATA_START });
-//     axios
-//       .delete(`http://localhost:3333/smurfs/${id}`)
-//       .then(res => {
-//         // res.data.data
-//         console.log(res);
-//         // dispatch({ type: SEND_SMURF_DATA_SUCCESS, payload: res.data});
-//       })
-    
-//   };
-// }
+export const GET_PLAYER_NAMES_START = "GET_PLAYER_NAMES_START";
+export const GET_PLAYER_NAMES_SUCCESS = "GET_PLAYER_NAMES_SUCCESS";
+export const GET_PLAYER_NAMES_FAILURE = "GET_PLAYER_NAMES_FAILURE";
+
+export const getPlayerNames = () => async dispatch => {
+  dispatch({ type: GET_PLAYER_NAMES_START });
+  try {
+    const res = await axios.get(url);
+    const playerNames =  Array.from(new Set(res.data.map(k => k.player))).sort()
+    dispatch({
+      type: GET_PLAYER_NAMES_SUCCESS,
+      payload: playerNames
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_PLAYER_NAMES_FAILURE,
+      payload: err
+    });
+  }
+};
+
+export const GET_PLAYERS_START = "GET_PLAYERS_START";
+export const GET_PLAYERS_SUCCESS = "GET_PLAYERS_SUCCESS";
+export const GET_PLAYERS_FAILURE = "GET_PLAYERS_FAILURE";
+
+export const getPlayers = () => async dispatch => {
+  dispatch({ type: GET_PLAYERS_START });
+  try {
+    const res = await axios.get(url);
+    dispatch({
+      type: GET_PLAYERS_SUCCESS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_PLAYERS_FAILURE,
+      payload: err
+    });
+  }
+};
+
+export const SEARCH_PLAYER_START = "SEARCH_PLAYER_START";
+export const SEARCH_PLAYER_SUCCESS = "SEARCH_PLAYER_SUCCESS";
+export const SEARCH_PLAYER_FAILURE = "SEARCH_PLAYER_FAILURE";
+
+export const searchPlayer = player => async dispatch => {
+  dispatch({ type: SEARCH_PLAYER_START, payload: player });
+  const nameUnderscore = player.replace(/ /g, "_")
+  try {
+    const res = await axios.get(`https://career-longevity-predictor.herokuapp.com/api/players/search/${nameUnderscore}`);
+    dispatch({
+      type: SEARCH_PLAYER_SUCCESS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: SEARCH_PLAYER_FAILURE,
+      payload: err
+    });
+  }  
+};
+
+
+

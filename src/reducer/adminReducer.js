@@ -28,6 +28,7 @@ export const adminReducer = (state = initialState, action) => {
     case GET_USERS_ERROR: {
       return {
         ...state,
+        gettingUsers: false,        
         error: action.payload
       };
     }

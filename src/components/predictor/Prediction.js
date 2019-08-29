@@ -1,21 +1,21 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 
 
-
-export const Prediction = (props) => {
-
-
+export const Prediction = () => {
+    const player = useSelector(state => state.player.player);  
+       
     return(
         <div>
             <div>
                 <div>
-                <h3>{props.player.player}</h3>
+                <h3>{player.player}</h3>
                 </div>
                 <div>
                     <h4>Stats</h4>
-                    <p>Colege: {props.player.college}</p>
-                    <p>Draft Year: {props.player.draft_yr}</p>
-                    <p>team: {props.player.team}</p>
+                    <p>Colege: {player.college}</p>
+                    <p>Draft Year: {player.draft_yr}</p>
+                    <p>team: {player.team}</p>
                 </div>
             </div>
             <div>

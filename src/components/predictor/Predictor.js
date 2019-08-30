@@ -24,7 +24,12 @@ const Predictor = ({history, location}) => {
 
   return (
     <div>
-      <ComponentHeader title={'Welcome'} onBack={onBack} location={location}/>
+      <ComponentHeader 
+        title={'Player Predictor'} 
+        onBack={onBack} 
+        location={location}
+        subTitle={'Search for a player to see lifetime stats, player comparison and longevity prediction.'}
+      />
       <Content style={{ minHeight: "76.1vh" }}>
         <div
           style={{
@@ -34,7 +39,7 @@ const Predictor = ({history, location}) => {
           }}
         >
           <BackTop />
-          <Title level={3}>Player Predictor</Title>
+          
           <Text type="secondary">
             Search for a player to see lifetime stats, player comparison and
             longevity prediction.

@@ -18,9 +18,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
 .logo {
   width: 420px;
@@ -35,6 +32,9 @@
 .logo img {
   width: 30px !important;
   margin-right: 10px !important;
+}
+img#banner {
+  width: 300px !important;
 }
 
 .ant-dropdown-link {
@@ -90,3 +90,14 @@
     transform: rotate(360deg);
   }
 }
+
+.ant-carousel .slick-slide {
+  /*text-align: center;*/
+  /*height: 260px;*/
+  line-height: 160px;
+  /*background: #364d79;*/
+  overflow: hidden;
+}
+
+
+

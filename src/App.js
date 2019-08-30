@@ -19,26 +19,32 @@ function App() {
   return (
     <div className="App" style={{ minHeight: "100vh" }}>
       <Layout>
-        
-          <TopNavBar />
-        
-        <Layout >
+        <TopNavBar />
+
+        <Layout>
           <SideNavBar />
-          <div style={{ margin: "18px 12px 0", minHeight: "76.1vh" }}>
-            <Content>
-            <Switch>
-              <Route exact path="/" component={Welcome} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/allUsers" component={AllUsers} />
-              <PrivateRoute exact path="/predictor" component={Predictor} />
-              <PrivateRoute exact path="/users" component={UsersList} />
-              <PrivateRoute exact path="/players" component={Players} />
-            </Switch>
+          <Layout style={{ padding: '0 24px 24px',margin: "18px 12px 0" }}>
+            <Content
+              style={{
+                background: "#fff",
+                padding: 24,
+                margin: 0,
+                minHeight: "76.1vh"
+              }}
+            >
+              <Switch>
+                <Route exact path="/" component={Welcome} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/allUsers" component={AllUsers} />
+                <PrivateRoute exact path="/predictor" component={Predictor} />
+                <PrivateRoute exact path="/users" component={UsersList} />
+                <PrivateRoute exact path="/players" component={Players} />
+              </Switch>
             </Content>
-          </div>
-          </Layout>
-          <Footer style={{ textAlign: "center" }}>Copyright 2019</Footer>
+            </Layout>
+        </Layout>
+        <Footer style={{ textAlign: "center" }}>Copyright 2019</Footer>
       </Layout>
     </div>
   );

@@ -4,7 +4,7 @@ import { PageHeader,Typography} from "antd";
 import { connect } from 'react-redux';
 
 
-const ComponentHeader = ({title, onBack,history}) => {
+const ComponentHeader = ({title,subTitle, onBack,history}) => {
     // const isMainPage = ["", "/"].includes(location.pathname);
     // const pageHeaderOnBack = isMainPage
     //     ? {}
@@ -18,10 +18,9 @@ const { Title, Text } = Typography;
         <div>
             <PageHeader 
                 {...pageHeaderOnBack}
-                // onBack={() => onBack()} 
-                // title={title} 
+                style={{ padding: '0 24px 0'}}
                 title={<Title level={3}>{title}</Title>}
-                subTitle="This is a subtitle" 
+                
 
             />
             {console.log()}

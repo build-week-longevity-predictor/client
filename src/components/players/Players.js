@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPlayers } from "../../action/index";
 import { Table, BackTop, Typography, Layout } from "antd";
+import ComponentHeader from '../navigation/ComponentHeader'
 
-const Players = () => {
+const Players = ({history, location}) => {
   const dispatch = useDispatch();
   const allPlayers = useSelector(state => state.player.allPlayers);
   const sorter = () => {
@@ -17,12 +18,22 @@ const Players = () => {
     loadData();
   }, [dispatch]);
 
+  const onBack = () => {
+     history.push("/")
+  }
+
   const { Column, ColumnGroup } = Table;
   const { Title, Text } = Typography;
   const { Content } = Layout;
 
   return (
     <div>
+      <ComponentHeader 
+        title={'Player List'} 
+        onBack={onBack} 
+        location={location}
+        subTitle={'Search for a player to see lifetime stats, player comparison and longevity prediction.'}
+      />      
       <Content style={{ minHeight: "76.1vh" }}>
         <div
           style={{
@@ -32,11 +43,10 @@ const Players = () => {
           }}
         >
           <BackTop />
-          <Title level={3}>Player List</Title>
-          <Text type="secondary" onClick={() => sorter()}>
+         <Text type="secondary">
             Search for a player to see lifetime stats, player comparison and
             longevity prediction.
-          </Text>
+          </Text>          
           <Table dataSource={allPlayers} rowKey={record => record.unnamed_0}>
             <Column
               title="Player"

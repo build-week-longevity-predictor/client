@@ -23,12 +23,19 @@ const SideNavBar = ({ location }) => {
             collapsed={collapse}
             onCollapse={onCollapse}
             theme={navBarTheme}
-            style={{padding: 0}}
+            width={200} 
+            style={{
+                padding: 0,
+                borderRight: 0,
+                // minHeight: "76.1vh"
+                }}
+
         >
             <Menu 
                 theme={navBarTheme} 
                 mode="inline" 
                 selectedKeys={current}
+                style={{padding: 0,borderRight: 0}}
                 >
                 <Menu.Item key="">
                     <Link to="/">

@@ -43,7 +43,7 @@ const UserProfileDropdown = ({
         </>
       }
     >
-      <a>
+      <a className="ant-dropdown-link" href="#">
         {user ? (
           <>
             {" "}

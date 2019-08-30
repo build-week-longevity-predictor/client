@@ -22,24 +22,53 @@
   color: #61dafb;
 }
 
-.ant-page-header {
-  background-color: #333 !important;
-}
-
-.ant-page-header-heading-title,
-.ant-page-header-heading-sub-title {
-  color: white !important;
+.logo {
+  width: 420px;
+  /*height: 31px;*/
+  margin-left: 50px;
+  float: left;
+  /*background-color: #333 !important;*/
+  color: #333 !important;
   font-size: 1.2rem !important;
 }
 
-.anticon.anticon-arrow-left {
-  color: white !important;
-}
-
-.ant-page-header-heading-title img {
+.logo img {
   width: 30px !important;
   margin-right: 10px !important;
 }
+
+.ant-dropdown-link {
+  margin-right: 20px !important;
+  font-size: 1.2rem !important;
+}
+/*
+.ant-page-header {
+  background-color: #333 !important;
+
+}*/
+
+.ant-layout-header {
+  /*background-color: #333 !important;*/
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+}
+
+/*.ant-page-header-heading-title,
+.ant-page-header-heading-sub-title {
+  color: white !important;
+  font-size: 1.2rem !important;
+}*/
+
+.anticon.anticon-arrow-left {
+  color: black !important;
+}
+
+/*.ant-page-header-heading-title img {
+  width: 30px !important;
+  margin-right: 10px !important;
+}*/
 
 .ant-page-header-heading-extra {
   margin-top: 7px !important;

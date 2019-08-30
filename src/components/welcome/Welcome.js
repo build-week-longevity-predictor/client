@@ -2,14 +2,26 @@ import React from "react";
 import { Layout, Divider, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import ComponentHeader from '../navigation/ComponentHeader'
 
-const Welcome = () => {
+const Welcome = ({location,history}) => {
     const { Title, Text } = Typography;
     const { Content } = Layout;
     const users = useSelector(state => state.user.user);
-
+  const onBack = () => {
+     {}
+  }
     return (
         <div>
+            {users ? (
+                <ComponentHeader title={`Welcome ${users.userName}`} onBack={onBack}
+                    history={history}/>
+                ) : (
+                <ComponentHeader title={'Welcome'} onBack={onBack}
+                    history={history}
+                    />
+                )
+                }
             <Content style={{ minHeight: "76.1vh" }}>
                 <div
                     style={{

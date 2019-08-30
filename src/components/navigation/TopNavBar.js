@@ -1,30 +1,26 @@
 import React from "react";
-import {  withRouter } from "react-router-dom";
-import { PageHeader} from "antd";
+import { withRouter } from "react-router-dom";
+import { Layout, Menu } from "antd";
 import UserProfileDropdown from "./UserProfileDropdown";
-import { connect } from 'react-redux';
-import logo from '../../assets/bball-icon-white.svg'
+import { connect } from "react-redux";
+import logo from "../../assets/bball-icon-white.svg";
 
-const TopNavBar = props => {
-    const isMainPage = ["", "/"].includes(props.history.location.pathname);
-    const pageHeaderOnBack = isMainPage
-        ? {}
-        // : { onBack: () => window.history.back() };
-        : { onBack: () => props.history.push("/") };
+const TopNavBar = () => {
+    const { Header } = Layout;
     return (
-        <div>
-            <PageHeader
-                {...pageHeaderOnBack}
-                title={
-                    <div style={{ marginTop: "7px" }}>
-                        <img src={logo} alt="career longevity basketball logo" />
-                        Player Career Longevity Predictor
-                    </div>
-                }
-              
-                extra={<UserProfileDropdown />}
-            />
-        </div>
+        <Header 
+            theme="light"
+            style={{ padding: 0, background: "#fff",borderBottom: "1px solid #e9e9e9"  }}
+            >
+            <div className="logo">
+                <img src={logo} alt="career longevity basketball logo" />
+                Player Career Longevity Predictor
+            </div>
+
+
+            <UserProfileDropdown />
+
+        </Header>
     );
 };
 

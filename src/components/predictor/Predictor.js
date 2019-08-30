@@ -3,8 +3,9 @@ import SearchForm from "./SearchForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Layout, BackTop, Divider, Typography } from "antd";
 import { getPlayerNames } from "../../action/index";
+import ComponentHeader from '../navigation/ComponentHeader'
 
-const Predictor = () => {
+const Predictor = ({history, location}) => {
   const { Title, Text } = Typography;
   const { Content } = Layout;
   const dispatch = useDispatch();
@@ -16,8 +17,14 @@ const Predictor = () => {
     };
     loadData();
   }, [dispatch]);
+
+  const onBack = () => {
+     history.push("/")
+  }
+
   return (
     <div>
+      <ComponentHeader title={'Welcome'} onBack={onBack} location={location}/>
       <Content style={{ minHeight: "76.1vh" }}>
         <div
           style={{

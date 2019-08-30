@@ -8,38 +8,37 @@ import Welcome from "./components/welcome/Welcome";
 import AllUsers from "./components/admin/AllUsers";
 import "./App.css";
 import { Layout } from "antd";
-import PrivateRoute from './utilities/PrivateRoute'
-import Predictor from './components/predictor/Predictor'
-import UsersList from './components/predictor/UsersList';
+import PrivateRoute from "./utilities/PrivateRoute";
+import Predictor from "./components/predictor/Predictor";
+import UsersList from "./components/predictor/UsersList";
 //import UsersList from './components/users/UsersList'
-import Players from './components/players/Players';
+import Players from "./components/players/Players";
 
 function App() {
-  const { Footer } = Layout;
+  const { Footer, Content, Header } = Layout;
   return (
     <div className="App" style={{ minHeight: "100vh" }}>
       <Layout>
-        <SideNavBar />
-        <Layout>
-          <Layout.Header
-            style={{ background: "#fff", padding: 0 }}
-            theme="light"
-          >
-            <TopNavBar />
-          </Layout.Header>
+        
+          <TopNavBar />
+        
+        <Layout >
+          <SideNavBar />
           <div style={{ margin: "18px 12px 0", minHeight: "76.1vh" }}>
+            <Content>
             <Switch>
-            <Route exact path="/" component={Welcome} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/allUsers" component={AllUsers} />
-            <PrivateRoute exact path="/predictor" component={Predictor} />
-            <PrivateRoute exact path="/users" component={UsersList} />
-            <PrivateRoute exact path="/players" component={Players} />
+              <Route exact path="/" component={Welcome} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/allUsers" component={AllUsers} />
+              <PrivateRoute exact path="/predictor" component={Predictor} />
+              <PrivateRoute exact path="/users" component={UsersList} />
+              <PrivateRoute exact path="/players" component={Players} />
             </Switch>
+            </Content>
           </div>
+          </Layout>
           <Footer style={{ textAlign: "center" }}>Copyright 2019</Footer>
-        </Layout>
       </Layout>
     </div>
   );

@@ -3,8 +3,9 @@ import SearchForm from "./SearchForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Layout, BackTop, Divider, Typography } from "antd";
 import { getPlayerNames } from "../../action/index";
+import ComponentHeader from '../navigation/ComponentHeader'
 
-const Predictor = () => {
+const Predictor = ({history, location}) => {
   const { Title, Text } = Typography;
   const { Content } = Layout;
   const dispatch = useDispatch();
@@ -16,8 +17,19 @@ const Predictor = () => {
     };
     loadData();
   }, [dispatch]);
+
+  const onBack = () => {
+     history.push("/")
+  }
+
   return (
     <div>
+      <ComponentHeader 
+        title={'Player Predictor'} 
+        onBack={onBack} 
+        location={location}
+        subTitle={'Search for a player to see lifetime stats, player comparison and longevity prediction.'}
+      />
       <Content style={{ minHeight: "76.1vh" }}>
         <div
           style={{
@@ -27,7 +39,7 @@ const Predictor = () => {
           }}
         >
           <BackTop />
-          <Title level={3}>Player Predictor</Title>
+          
           <Text type="secondary">
             Search for a player to see lifetime stats, player comparison and
             longevity prediction.

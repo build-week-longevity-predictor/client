@@ -33,10 +33,11 @@ export const PlayerReducer = (state = InitialState, action) => {
                 error: false
             };
         case GET_PLAYERS_SUCCESS:
+        const sorted = action.payload.sort((a,b) => b.pts - a.pts)
             return {
                 ...state,
                 gettingPlayers: false,
-                allPlayers: action.payload,
+                allPlayers: sorted,
                 playersLoaded: true                
             };
         case GET_PLAYERS_FAILURE: {

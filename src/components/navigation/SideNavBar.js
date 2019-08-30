@@ -16,7 +16,7 @@ const SideNavBar = ({ location }) => {
     }, [location]);
 
     const { Sider } = Layout;
-    const navBarTheme = "light";
+    const navBarTheme = "dark";
     return (
         <Sider
             collapsible

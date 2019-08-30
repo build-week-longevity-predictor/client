@@ -9,8 +9,8 @@ const TopNavBar = () => {
     const { Header } = Layout;
     return (
         <Header 
-            theme="light"
-            style={{ padding: 0, background: "#fff",borderBottom: "1px solid #e9e9e9"  }}
+            // theme="light"
+         
             >
             <div className="logo">
                 <img src={logo} alt="career longevity basketball logo" />
